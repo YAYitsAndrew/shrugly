@@ -1,0 +1,1 @@
+angular.module("shruglyApp", ["ngRoute", "appRoutes", "MainCtrl"]);
