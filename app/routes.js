@@ -35,14 +35,12 @@ module.exports = function(app) {
 		});
 	})
 	.post(function(req, res) {
-		var name = req.body.name;
-		var ascii = req.body.ascii;
+		var newObj = {
+			name: req.body.name,
+			ascii: req.body.ascii
+		};
 		
-		var newObj = new Asciimoji({
-			name: name,
-			ascii: ascii
-		});
-		newObj.save(function(err, asciimoji) {
+		Asciimoji.create(newObj, function(err, asciimoji) {
 			if(err) {
 				res.send(err);
 			}
