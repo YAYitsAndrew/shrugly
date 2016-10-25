@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 
-module.exports = mongoose.model('Asciimoji', {
+var asciimojiSchema = mongoose.Schema({
 	name: { type: String, default: '' },
 	ascii: { type: String, default: '' }
 });
+
+module.exports = mongoose.model('Asciimoji', asciimojiSchema);

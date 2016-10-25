@@ -1,0 +1,16 @@
+<div>
+	<h1>shrug.ly Admin</h1>
+	
+	<form novalidate>
+		<label for="name">Name</label>
+		<input type="text" id="name" ng-model="newAsciimoji.name" required>
+		<label for="ascii">Ascii</label>
+		<input type="text" id="ascii" ng-model="newAsciimoji.ascii" required>
+		<button type="submit" ng-click="addAsciimoji(newAsciimoji)">Add Ascii</button>
+	</form>
+	
+	<h2>Existing Asciimojis</h2>
+	<ul>
+		<li ng-repeat="asciimoji in asciimojis">{{asciimoji.name}}: {{asciimoji.ascii}}</li>
+	</ul>
+</div>
