@@ -11,6 +11,9 @@
 	
 	<h2>Existing Asciimojis</h2>
 	<ul>
-		<li ng-repeat="asciimoji in asciimojis">{{asciimoji.name}}: {{asciimoji.ascii}}</li>
+		<li ng-repeat="asciimoji in asciimojis">
+			{{asciimoji.name}}: {{asciimoji.ascii}}
+			<button type="submit" ng-click="deleteAsciimoji(asciimoji)">Del</button>
+		</li>
 	</ul>
 </div>

@@ -4,6 +4,26 @@ var path = require('path');
 module.exports = function(app) {
 	
 	// server routes ===========================================================
+	app.route('/api/asciimoji/:id')
+	.get(function(req, res) {
+		Asciimoji.findById(req.params.id, function(err, asciimoji) {
+			if(err) {
+				res.send(err);
+			}
+			
+			res.json(asciimoji);
+		});
+	})
+	.delete(function(req, res) {
+		Asciimoji.findByIdAndRemove(req.params.id, {}, function(err, asciimoji) {
+			if(err) {
+				res.send(err);
+			}
+			
+			res.status(200).json(asciimoji);
+		});
+	});
+	
 	app.route('/api/asciimoji')
 	.get(function(req, res) {
 		Asciimoji.find(function(err, asciimojis) {
