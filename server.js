@@ -4,18 +4,18 @@ var bodyParser = require("body-parser");
 var methodOverride = require("method-override");
 var mongoose = require("mongoose");
 var passport = require("passport");
-var BasicStrategy = require("passport-http").BasicStrategy;
+var LocalStrategy = require("passport-local").Strategy;
 var User = require("./app/models/user");
 
 // configuration ===========================================
 var app = express();
 
-// load config values
+//load config values
 var dbConfig = require("./config/db");
 var adminConfig = require("./config/admin");
 var port = process.env.PORT || 8080;
 
-// connect to mongoDB database
+// database ================================================
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.url);
 var db = mongoose.connection;
@@ -37,35 +37,56 @@ User.find({ email: newObj.email }, function(err, user) {
 	}
 });*/
 
-//set up passport for basic http auth
-passport.use(new BasicStrategy(
-	function(username, password, done) {
-		User.findOne({ email: username }, function(err, user) {
-			if(err) {
-				return done(err);
-			}
-			if(!user) {
-				return done(null, false);
-			}
-			if(!user.validPassword(password)) {
-				return done(null, false);
-			}
-			
-			return done(null, user);
-		});
-	}
-));
+// authentication ==========================================
+//set up passport strategy for local auth (used by /login)
+passport.use(new LocalStrategy({ usernameField: 'email' }, function(username, password, done) {
+	console.log("Authentication attempt for", username);
+	User.findOne({ email: username }, function(err, user) {
+		if(err) {
+			return done(err);
+		}
+		if(!user) {
+			console.log("No user found.");
+			return done(null, false, { message: "No user found."});
+		}
+		if(!user.validPassword(password)) {
+			console.log("Invalid password.");
+			return done(null, false, { message: "Invalid password."});
+		}
+		console.log("Successfully authenticated", user.email);
+		return done(null, user);
+	});
+}));
 
-// parse application/json
+passport.serializeUser(function(user, done) {
+	done(null, user.email);
+});
+
+passport.deserializeUser(function(id, done) {
+	User.findOne({ email: id }, function(err, user) {
+		if(err) {
+			console.log(err);
+			return done(err);
+		}
+		
+		done(null, user);
+	});
+});
+
+
+// middleware ==============================================
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(methodOverride("X-HTTP-Method-Override"));
-
-// set the static files location /public/img will be /img for users
-app.use(express.static(__dirname + "/public"));
+app.use(require("express-session")({
+	secret: "shrug.ly ¯\_(ツ)_/¯ secret",
+	resave: false,
+	saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // routes ==================================================
 require("./app/routes")(app);

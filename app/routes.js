@@ -8,6 +8,14 @@ module.exports = function(app) {
 	var asciimojiRouteWithId = "/api/asciimoji/:id";
 	var asciimojiRoute = "/api/asciimoji";
 	
+	var checkAuthentication = function(req, res, next) {
+		if(!req.isAuthenticated()) {
+			res.sendStatus(401);
+		} else {
+			next();
+		}
+	};
+	
 	app.get( asciimojiRouteWithId, function(req, res) {
 		Asciimoji.findById(req.params.id, function(err, asciimoji) {
 			if(err) {
@@ -19,7 +27,7 @@ module.exports = function(app) {
 	});
 	
 	app.delete(asciimojiRouteWithId,
-		passport.authenticate('basic', { session: false }),
+		checkAuthentication,
 		function(req, res) {
 			Asciimoji.findByIdAndRemove(req.params.id, {}, function(err, asciimoji) {
 				if(err) {
@@ -28,7 +36,8 @@ module.exports = function(app) {
 
 				res.status(200).json(asciimoji);
 			});
-		});
+		}
+	);
 	
 	app.get(asciimojiRoute, function(req, res) {
 		Asciimoji.find(function(err, asciimojis) {
@@ -41,7 +50,7 @@ module.exports = function(app) {
 	});
 	
 	app.post(asciimojiRoute,
-		passport.authenticate('basic', { session: false }),
+		checkAuthentication,
 		function(req, res) {
 			var newObj = {
 				name: req.body.name,
@@ -55,7 +64,21 @@ module.exports = function(app) {
 
 				res.json(asciimoji);
 			});
-		});
+		}
+	);
+	
+	app.post("/login", passport.authenticate("local"), function(req, res) {
+		res.sendStatus(200);
+	});
+	
+	app.get("/logout", function(req, res) {
+		req.logout();
+		res.sendStatus(200);
+	});
+	
+	app.get("/loggedin", function(req, res) {
+		res.send(req.isAuthenticated() ? req.user.email : '0');
+	});
 	
 	// frontend routes =========================================================
 	// route to handle all angular requests
