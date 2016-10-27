@@ -1,7 +1,6 @@
-angular.module('AsciimojiService', [])
-.factory('Asciimoji', ['$http', function($http) {
-	
-	var endpoint = '/api/asciimoji';
+angular.module("AsciimojiService", [])
+.factory("Asciimoji", ["$http", function($http) {
+	var endpoint = "/api/asciimoji";
 	
 	return {
 		get : function() {
@@ -13,8 +12,7 @@ angular.module('AsciimojiService', [])
 		},
 		
 		delete: function(id) {
-			return $http.delete(endpoint + '/' + id);
+			return $http.delete(endpoint + "/" + id);
 		}
 	};
-	
 }]);

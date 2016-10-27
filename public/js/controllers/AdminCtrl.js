@@ -1,5 +1,5 @@
 angular.module("AdminCtrl", ["AsciimojiService"])
-.controller("AdminController", [ "Asciimoji", "$scope", function(Asciimoji, $scope) {
+.controller("AdminController", ["Asciimoji", "$scope", function(Asciimoji, $scope) {
 	
 	$scope.newAsciimoji = {};
 	

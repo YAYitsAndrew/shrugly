@@ -1,5 +1,5 @@
 angular.module("LoginCtrl", [])
-.controller("LoginController", [ "$http", "$location", "$scope", function($http, $location, $scope) {
+.controller("LoginController", ["$http", "$location", "$scope", function($http, $location, $scope) {
 	$scope.credentials = {};
 	
 	$scope.authenticate = function(credentials) {
