@@ -1,1 +1,10 @@
-angular.module("shruglyApp", ["ngRoute", "appRoutes", "AsciimojiService", "MainCtrl", "AdminCtrl"]);
+angular.module("shruglyApp", [
+	"ngRoute",
+	"appRoutes",
+	
+	"AsciimojiService",
+	
+	"MainCtrl",
+	"LoginCtrl",
+	"AdminCtrl"
+]);

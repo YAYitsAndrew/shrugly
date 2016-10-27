@@ -10,7 +10,7 @@ module.exports = function(app) {
 	
 	var checkAuthentication = function(req, res, next) {
 		if(!req.isAuthenticated()) {
-			res.sendStatus(401);
+			res.sendStatus(403);
 		} else {
 			next();
 		}
@@ -81,9 +81,19 @@ module.exports = function(app) {
 	});
 	
 	// frontend routes =========================================================
+	var angularRouter = path.join(__dirname, "../public", "index.html");
+	
+	app.get("/admin", function(req, res) {
+		if(!req.isAuthenticated()) {
+			res.redirect("/login");
+		} else {
+			res.sendFile(angularRouter);
+		}
+	});
+	
 	// route to handle all angular requests
 	app.get("*", function(req, res) {
-		res.sendFile(path.join(__dirname, "../public", "index.html"));
+		res.sendFile(angularRouter);
 	});
 
 };

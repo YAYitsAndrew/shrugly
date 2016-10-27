@@ -1,0 +1,9 @@
+<h1>Login</h1>
+
+<form novalidate>
+	<label for="email">Email</label>
+	<input type="email" id="email" ng-model="credentials.email" required>
+	<label for="password">Password</label>
+	<input type="password" id="password" ng-model="credentials.password" required>
+	<button type="submit" ng-click="authenticate(credentials)">Login</button>
+</form>
