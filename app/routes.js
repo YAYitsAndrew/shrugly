@@ -81,19 +81,9 @@ module.exports = function(app) {
 	});
 	
 	// frontend routes =========================================================
-	var angularRouter = path.join(__dirname, "../public", "index.html");
-	
-	app.get("/admin", function(req, res) {
-		if(!req.isAuthenticated()) {
-			res.redirect("/login");
-		} else {
-			res.sendFile(angularRouter);
-		}
-	});
-	
 	// route to handle all angular requests
 	app.get("*", function(req, res) {
-		res.sendFile(angularRouter);
+		res.sendFile(path.join(__dirname, "../public", "index.html"))
 	});
 
 };
