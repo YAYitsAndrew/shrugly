@@ -1,3 +1,17 @@
-<div>
-	<h1>shrug.ly</h1>
+<div class="container">
+	
+	<div class="page-header">
+		<span class="h1">shrug.ly </span>
+		<span class="h3"><small>¯\_(ツ)_/¯</small></span>
+	</div>
+	
+	<div id="asciimojis-row" class="row">
+		<div class="col-md-3 asciimoji-container" ng-repeat="asciimoji in asciimojis">
+			<a class="btn btn-default btn-lg btn-block copy-btn" href="#" role="button"
+			   data-clipboard-text="{{asciimoji.ascii}}">
+				<span class="asciimoji">{{asciimoji.ascii}}</span>
+			</a>
+		</div>
+	</div>
+	
 </div>
