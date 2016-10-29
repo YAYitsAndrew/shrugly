@@ -1,3 +1,5 @@
+/* asciimoji buttons */
+
 #asciimojis-row .asciimoji-container {
 	margin-bottom: 2.5rem;
 }
@@ -25,6 +27,18 @@
 #asciimojis-row .copy-btn:hover .copy-message {
 	visibility: visible;
 	opacity: 1;
+}
+
+/* footer */
+
+.footer-bottom {
+	margin-top: 8rem;
+	font-size: 1.4rem;
+	color: #888;
+}
+
+.copyright {
+	text-align: right;
 }
 
 /* bootstrap for /login page */
