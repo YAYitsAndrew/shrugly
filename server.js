@@ -11,31 +11,23 @@ var User = require("./app/models/user");
 var app = express();
 
 //load config values
-var dbConfig = require("./config/db");
-var adminConfig = require("./config/admin");
+var mongodb_uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 var port = process.env.PORT || 8080;
 
 // database ================================================
-mongoose.Promise = global.Promise;
-mongoose.connect(dbConfig.url);
-var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-
-//create the OG admin user for basic http auth
-/*var newObj = {
-	email: adminConfig.email,
-	password: User.generateHash(adminConfig.password)
+var dbOptions = {
+	server: {
+		socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 }
+	},
+	replset: {
+		socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 }
+	}
 };
 
-User.find({ email: newObj.email }, function(err, user) {
-	if(user.length == 0) {
-		User.create(newObj, function(err, user) {
-			if(err) {
-				console.log(err);
-			}
-		});
-	}
-});*/
+mongoose.Promise = global.Promise;
+mongoose.connect(mongodb_uri, dbOptions);
+var db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
 
 // authentication ==========================================
 //set up passport strategy for local auth (used by /login)
@@ -72,7 +64,6 @@ passport.deserializeUser(function(id, done) {
 		done(null, user);
 	});
 });
-
 
 // middleware ==============================================
 app.use(express.static(__dirname + "/public"));
