@@ -2,8 +2,6 @@
   "name": "shrugly",
   "version": "0.0.1",
   "dependencies": {
-    "angular": "latest",
-    "angular-route": "latest",
     "clipboard": "^1.5.15"
   }
 }
