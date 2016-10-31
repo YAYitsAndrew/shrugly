@@ -3,7 +3,11 @@
   "version": "0.0.1",
   "description": "easily copy shrug and other ascii emotes",
   "main": "server.js",
+  "engines": {
+    "node": "4.6.0"
+  },
   "scripts": {
+	"start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
