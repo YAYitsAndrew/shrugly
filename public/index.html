@@ -39,24 +39,18 @@
 	<script src="js/controllers/MainCtrl.js"></script>
 	<script src="js/controllers/LoginCtrl.js"></script>
 	<script src="js/controllers/AdminCtrl.js"></script>
+	<script src="js/directives/HeaderDir.js"></script>
+	<script src="js/directives/FooterDir.js"></script>
 	<script src="js/appRoutes.js"></script>
 	<script src="js/app.js"></script>
 </head>
 
 <body ng-app="shruglyApp" ng-controller="MainController" ng-strict-di>
+	<div x-header></div>
+	
 	<div class="container" ng-view></div>
 	
-	<div class="footer-bottom">
-		<div class="container">
-			<div class="col-md-8">
-				<p>An educational project to learn MEAN stack. The backend is ridiculously over-engineered. ¯\_(ツ)_/¯</p>
-			</div>
-			<div class="col-md-4 copyright">
-				<p>&copy; 2016, Andrew Pellerano. <a href="https://www.linkedin.com/in/andrewpellerano
-					" target="_blank" alt="Andrew Pellerano's LinkedIn">LinkedIn</a></p>
-			</div>
-		</div>
-	</div>
+	<div x-footer></div>
 </body>
 
 </html>

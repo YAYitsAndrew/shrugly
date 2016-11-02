@@ -29,6 +29,19 @@
 	opacity: 1;
 }
 
+/* header */
+
+.page-header .row {
+	position: relative;
+}
+
+.user-controls {
+	text-align: right;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
 /* footer */
 
 .footer-bottom {

@@ -6,5 +6,8 @@ angular.module("shruglyApp", [
 	
 	"MainCtrl",
 	"LoginCtrl",
-	"AdminCtrl"
+	"AdminCtrl",
+	
+	"HeaderDir",
+	"FooterDir"
 ]);
