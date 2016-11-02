@@ -1,17 +1,22 @@
-<h1>shrug.ly Admin</h1>
+<div x-header user="user"></div>
 
-<form novalidate>
-	<label for="name">Name</label>
-	<input type="text" id="name" ng-model="newAsciimoji.name" required>
-	<label for="ascii">Ascii</label>
-	<input type="text" id="ascii" ng-model="newAsciimoji.ascii" required>
-	<button type="submit" ng-click="addAsciimoji(newAsciimoji)">Add Ascii</button>
-</form>
+<div class="container">
+	<h3>Add New Asciimoji</h3>
+	<form novalidate>
+		<label for="name">Name</label>
+		<input type="text" id="name" ng-model="newAsciimoji.name" required>
+		<label for="ascii">Ascii</label>
+		<input type="text" id="ascii" ng-model="newAsciimoji.ascii" required>
+		<button type="submit" ng-click="addAsciimoji(newAsciimoji)">Add Ascii</button>
+	</form>
 
-<h2>Existing Asciimojis</h2>
-<ul>
-	<li ng-repeat="asciimoji in asciimojis">
-		{{asciimoji.name}}: {{asciimoji.ascii}}
-		<button type="submit" ng-click="deleteAsciimoji(asciimoji)">Del</button>
-	</li>
-</ul>
+	<h3>Existing Asciimojis</h3>
+	<ul>
+		<li ng-repeat="asciimoji in asciimojis">
+			{{asciimoji.name}}: {{asciimoji.ascii}}
+			<button type="submit" ng-click="deleteAsciimoji(asciimoji)">Del</button>
+		</li>
+	</ul>
+</div>
+
+<div x-footer></div>

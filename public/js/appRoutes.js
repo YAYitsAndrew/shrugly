@@ -41,8 +41,6 @@ angular.module("appRoutes", [])
 				templateUrl: "views/main.html",
 				controller: "MainController"
 			});
-		
-		//$httpProvider.interceptors.push("CheckAuth");
 
 		$locationProvider.html5Mode(true);
 	}

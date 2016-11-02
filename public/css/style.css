@@ -35,11 +35,25 @@
 	position: relative;
 }
 
+.page-header .home {
+	text-decoration: none;
+}
+
+.page-header .home .h1 {
+	color: #000;
+}
+
 .user-controls {
 	text-align: right;
 	position: absolute;
 	bottom: 0;
 	right: 0;
+}
+
+.user-controls li {
+	display: inline;
+	list-style-type: none;
+	margin-left: 2rem;
 }
 
 /* footer */

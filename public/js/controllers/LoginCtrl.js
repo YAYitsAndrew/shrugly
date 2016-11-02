@@ -1,5 +1,5 @@
 angular.module("LoginCtrl", [])
-.controller("LoginController", ["$http", "$location", "$scope", function($http, $location, $scope) {
+.controller("LoginController", ["$http", "$scope", "$rootScope", function($http, $scope, $rootScope) {
 	$scope.credentials = {};
 	
 	$scope.authenticate = function(credentials) {
@@ -7,7 +7,7 @@ angular.module("LoginCtrl", [])
 		.then(
 			function(res) { //success
 				$scope.credentials = {};
-				$location.path("/admin");
+				$rootScope.user = res.data;
 			},
 			function(res) { //error
 				//do nothing

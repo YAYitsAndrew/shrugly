@@ -1,11 +1,20 @@
 <div class="page-header container">
 	<div class="row">
 		<div class="col-md-8">
-			<span class="h1">shrug.ly </span>
-			<span class="h3"><small>¯\_(ツ)_/¯</small></span>
+			<a class="home" href="/"><span class="h1">shrug.ly</span>
+			<span class="h3"><small>¯\_(ツ)_/¯</small></span></a>
 		</div>
 		<div class="col-md-4 user-controls">
-			<!--<span>Login</span>-->
+			<ul ng-if="user">
+				<li>{{user.email}}</li>
+				<li ng-if="user.isAdmin">
+					<a href="/admin">Admin</a>
+				</li>
+				<li><a href="#" ng-click="logout()">Logout</a></li>
+			</ul>
+			<span ng-if="!user">
+				<a href="/login">Login</a>
+			</span>
 		</div>
 	</div>
 </div>

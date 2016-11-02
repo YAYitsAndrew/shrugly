@@ -1,9 +1,15 @@
-<div id="asciimojis-row" class="row">
-	<div class="col-md-3 asciimoji-container" ng-repeat="asciimoji in asciimojis">
-		<a class="btn btn-default btn-lg btn-block copy-btn" href="#" role="button"
-		   data-clipboard-text="{{asciimoji.ascii}}">
-			<div class="asciimoji">{{asciimoji.ascii}}</div>
-			<small class="copy-message">Copy to clipboard</small>
-		</a>
+<div x-header user="user"></div>
+
+<div class="container">
+	<div id="asciimojis-row" class="row">
+		<div class="col-md-3 asciimoji-container" ng-repeat="asciimoji in asciimojis">
+			<a class="btn btn-default btn-lg btn-block copy-btn" href="#" role="button"
+			   data-clipboard-text="{{asciimoji.ascii}}">
+				<div class="asciimoji">{{asciimoji.ascii}}</div>
+				<small class="copy-message">Copy to clipboard</small>
+			</a>
+		</div>
 	</div>
 </div>
+
+<div x-footer></div>

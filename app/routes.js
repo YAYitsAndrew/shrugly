@@ -1,4 +1,5 @@
 var Asciimoji = require("./models/asciimoji");
+var User = require("./models/user");
 var path = require("path");
 var passport = require("passport");
 
@@ -10,7 +11,7 @@ module.exports = function(app) {
 	
 	var checkAuthentication = function(req, res, next) {
 		if(!req.isAuthenticated()) {
-			res.sendStatus(403);
+			res.sendStatus(401);
 		} else {
 			next();
 		}
@@ -33,8 +34,8 @@ module.exports = function(app) {
 				if(err) {
 					res.send(err);
 				}
-
-				res.status(200).json(asciimoji);
+				
+				res.json(asciimoji);
 			});
 		}
 	);
@@ -68,7 +69,16 @@ module.exports = function(app) {
 	);
 	
 	app.post("/login", passport.authenticate("local"), function(req, res) {
-		res.sendStatus(200);
+		User.findOne({ email: req.user.email }, function(err, user) {
+			if(err) {
+				res.send(err);
+			}
+			if(!user) {
+				res.send("No user found.");
+			}
+
+			res.json(user.getClientJson());
+		});
 	});
 	
 	app.get("/logout", function(req, res) {
@@ -77,7 +87,20 @@ module.exports = function(app) {
 	});
 	
 	app.get("/loggedin", function(req, res) {
-		res.send(req.isAuthenticated() ? req.user.email : '0');
+		if(req.isAuthenticated()) {
+			User.findOne({ email: req.user.email }, function(err, user) {
+				if(err) {
+					res.send(err);
+				}
+				if(!user) {
+					res.send("No user found.");
+				}
+
+				res.json(user.getClientJson());
+			});
+		} else {
+			res.send("0");
+		}
 	});
 	
 	// frontend routes =========================================================
