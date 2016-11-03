@@ -1,24 +1,19 @@
 angular.module("appRoutes", [])
 .config(["$routeProvider", "$httpProvider", "$locationProvider",
 	function($routeProvider, $httpProvider, $locationProvider) {
-		var checkAuth = ["$q", "$http", "$location", function($q, $http, $location) {
+		var checkAuth = ["$q", "$http", "$rootScope", function($q, $http, $rootScope) {
 			var deferred = $q.defer();
-
-			var failFunc = function() {
-				deferred.reject();
-				$location.url("/login");
-			};
 
 			$http.get("/loggedin").then(
 				function(res) { //success
 					if(res.data !== '0') {
-						deferred.resolve();
-					} else {
-						failFunc();
+						$rootScope.user = res.data;
 					}
+					
+					deferred.resolve();
 				},
 				function(err) { //error
-					failFunc();
+					deferred.resolve();
 				}
 			);
 
@@ -33,13 +28,12 @@ angular.module("appRoutes", [])
 					loggedin: checkAuth
 				}
 			})
-			.when("/login", {
-				templateUrl: "views/login.html",
-				controller: "LoginController"
-			})
 			.when("/", {
 				templateUrl: "views/main.html",
-				controller: "MainController"
+				controller: "MainController",
+				resolve: {
+					loggedin: checkAuth
+				}
 			});
 
 		$locationProvider.html5Mode(true);

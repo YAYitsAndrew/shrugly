@@ -104,9 +104,14 @@ module.exports = function(app) {
 	});
 	
 	// frontend routes =========================================================
+	var deferToAngularRouter = function(req, res) {
+		res.sendFile(path.join(__dirname, "../public", "index.html"));
+	};
+	
+	// restricted urls check auth first
+	app.get("/admin", checkAuthentication, deferToAngularRouter);
+	
 	// route to handle all angular requests
-	app.get("*", function(req, res) {
-		res.sendFile(path.join(__dirname, "../public", "index.html"))
-	});
+	app.get("*", deferToAngularRouter);
 
 };
