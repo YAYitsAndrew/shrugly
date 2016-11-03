@@ -5,6 +5,8 @@ var methodOverride = require("method-override");
 var mongoose = require("mongoose");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
+var session = require("express-session");
+var MongoDBStore = require("connect-mongodb-session")(session);
 var User = require("./app/models/user");
 
 // configuration ===========================================
@@ -13,6 +15,7 @@ var app = express();
 //load config values
 var mongodb_uri = process.env.MONGODB_URI || "mongodb://localhost:27017";
 var port = process.env.PORT || 8080;
+var sessionSecret = process.env.SESSION_SECRET || "¯\_(ツ)_/¯ dev secret";
 
 // database ================================================
 var dbOptions = {
@@ -27,7 +30,7 @@ var dbOptions = {
 mongoose.Promise = global.Promise;
 mongoose.connect(mongodb_uri, dbOptions);
 var db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
+db.on("error", console.error.bind(console, "db connection error:"));
 
 // authentication ==========================================
 //set up passport strategy for local auth (used by /login)
@@ -65,16 +68,28 @@ passport.deserializeUser(function(id, done) {
 	});
 });
 
+// session storage =========================================
+var store = new MongoDBStore({
+	uri: mongodb_uri,
+	collection: "sessions"
+});
+
+store.on("error", console.error.bind(console, "session store error:"));
+
 // middleware ==============================================
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride("X-HTTP-Method-Override"));
-app.use(require("express-session")({
-	secret: "shrug.ly ¯\_(ツ)_/¯ secret",
-	resave: false,
-	saveUninitialized: false
+app.use(session({
+	secret: sessionSecret,
+	cookie: {
+		maxAge: 1000 * 60 * 60 * 24 * 30 //1 month
+	},
+	store: store,
+	resave: true,
+	saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
