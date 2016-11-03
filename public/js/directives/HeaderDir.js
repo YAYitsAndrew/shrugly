@@ -5,7 +5,8 @@ angular.module("HeaderDir", [])
 		replace: true,
 		scope: { user: "=" },
 		templateUrl: "views/header.html",
-		controller: ["$http", "$scope", "$rootScope", function($http, $scope, $rootScope) {
+		controller: ["$http", "$location", "$scope", "$rootScope",
+		function($http, $location, $scope, $rootScope) {
 			$scope.credentials = {};
 			
 			$scope.login = function(credentials) {
@@ -26,6 +27,7 @@ angular.module("HeaderDir", [])
 				.then(
 					function(res) { //success
 						$rootScope.user = undefined;
+						$location.path("/");
 					},
 					function(res) { //error
 						//do nothing

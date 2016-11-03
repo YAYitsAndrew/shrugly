@@ -1,7 +1,6 @@
 // modules =================================================
 var express = require("express");
 var bodyParser = require("body-parser");
-var methodOverride = require("method-override");
 var mongoose = require("mongoose");
 var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
@@ -81,10 +80,11 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(methodOverride("X-HTTP-Method-Override"));
 app.use(session({
 	secret: sessionSecret,
+	name: "sessionid",
 	cookie: {
+		httpOnly: true,
 		maxAge: 1000 * 60 * 60 * 24 * 30 //1 month
 	},
 	store: store,
@@ -93,6 +93,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.disable("x-powered-by");
 
 // routes ==================================================
 require("./app/routes")(app);
