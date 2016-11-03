@@ -31,76 +31,34 @@
 
 /* header */
 
-.page-header .row {
-	position: relative;
+.navbar-brand .h1 {
+	line-height: 0;
+	color: #333;
 }
 
-.page-header .home {
-	text-decoration: none;
+.navbar-brand {
 }
 
-.page-header .home .h1 {
-	color: #000;
+#login-dropdown {
+    min-width: 25rem;
+    padding: 1rem 1rem 0;
+    overflow: hidden;
+    background-color: rgba(255,255,255,1);
 }
 
-.user-controls {
-	text-align: right;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-}
-
-.user-controls li {
-	display: inline;
-	list-style-type: none;
-	margin-left: 2rem;
+#login-dp .form-group {
+    margin-bottom: 1rem;
 }
 
 /* footer */
 
 .footer-bottom {
 	margin-top: 8rem;
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 	color: #888;
 }
 
-.copyright {
+.footer-bottom p {
 	text-align: right;
-}
-
-/* bootstrap for /login page */
-
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
-  margin-bottom: 10px;
-}
-.form-signin .checkbox {
-  font-weight: normal;
-}
-.form-signin .form-control {
-  position: relative;
-  height: auto;
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+	margin-bottom: 0.3rem;
 }
