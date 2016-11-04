@@ -6,6 +6,7 @@ var passport = require("passport");
 var LocalStrategy = require("passport-local").Strategy;
 var session = require("express-session");
 var MongoDBStore = require("connect-mongodb-session")(session);
+var csrf = require("csurf");
 var User = require("./app/models/user");
 
 // configuration ===========================================
@@ -77,9 +78,11 @@ store.on("error", console.error.bind(console, "session store error:"));
 
 // middleware ==============================================
 app.use(express.static(__dirname + "/public"));
+
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(bodyParser.urlencoded({ extended: true }));
+
 app.use(session({
 	secret: sessionSecret,
 	name: "sessionid",
@@ -91,8 +94,23 @@ app.use(session({
 	resave: true,
 	saveUninitialized: true
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use(csrf());
+app.use(function(req, res, next) {
+	res.cookie("XSRF-TOKEN", req.csrfToken())
+	return next();
+});
+app.use(function(err, req, res, next) {
+	if(err.code !== "EBADCSRFTOKEN") {
+		return next(err);
+	}
+
+	res.sendStatus(403, "Invalid CSRF");
+});
+
 app.disable("x-powered-by");
 
 // routes ==================================================
