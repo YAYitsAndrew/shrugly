@@ -2,6 +2,7 @@
   "name": "shrugly",
   "version": "0.0.1",
   "dependencies": {
-    "clipboard": "^1.5.15"
+    "clipboard": "^1.5.15",
+    "angular-password": "^1.0.3"
   }
 }

@@ -27,18 +27,15 @@ module.exports = function(app) {
 		});
 	});
 	
-	app.delete(asciimojiRouteWithId,
-		checkAuthentication,
-		function(req, res) {
-			Asciimoji.findByIdAndRemove(req.params.id, {}, function(err, asciimoji) {
-				if(err) {
-					res.send(err);
-				}
-				
-				res.json(asciimoji);
-			});
-		}
-	);
+	app.delete(asciimojiRouteWithId, checkAuthentication, function(req, res) {
+		Asciimoji.findByIdAndRemove(req.params.id, {}, function(err, asciimoji) {
+			if(err) {
+				res.send(err);
+			}
+			
+			res.json(asciimoji);
+		});
+	});
 	
 	app.get(asciimojiRoute, function(req, res) {
 		Asciimoji.find(function(err, asciimojis) {
@@ -50,23 +47,48 @@ module.exports = function(app) {
 		});
 	});
 	
-	app.post(asciimojiRoute,
-		checkAuthentication,
-		function(req, res) {
-			var newObj = {
-				name: req.body.name,
-				ascii: req.body.ascii
-			};
+	app.post(asciimojiRoute, checkAuthentication, function(req, res) {
+		var newObj = {
+			name: req.body.name,
+			ascii: req.body.ascii
+		};
+		
+		Asciimoji.create(newObj, function(err, asciimoji) {
+			if(err) {
+				res.send(err);
+			}
+			
+			res.json(asciimoji);
+		});
+	});
+	
+	app.post("/user", function(req, res) {
+		var newObj = {
+			email: req.body.email,
+			password: User.generateHash(req.body.password),
+			isAdmin: false
+		};
 
-			Asciimoji.create(newObj, function(err, asciimoji) {
-				if(err) {
-					res.send(err);
-				}
-
-				res.json(asciimoji);
-			});
-		}
-	);
+		User.find({ email: newObj.email }, function(err, user) {
+			if(user.length == 0) {
+				User.create(newObj, function(err, user) {
+					if(err) {
+						res.send(err);
+					}
+					
+					req.login(user, function(err) {
+						if(err) {
+							res.send(err);
+						}
+						
+						res.json(user.getClientJson());
+					});
+				});
+			} else {
+				res.status(409).send("A user with this email already exists.");
+			}
+		});
+	});
 	
 	app.post("/login", passport.authenticate("local"), function(req, res) {
 		User.findOne({ email: req.user.email }, function(err, user) {
@@ -76,7 +98,7 @@ module.exports = function(app) {
 			if(!user) {
 				res.send("No user found.");
 			}
-
+			
 			res.json(user.getClientJson());
 		});
 	});
@@ -95,7 +117,7 @@ module.exports = function(app) {
 				if(!user) {
 					res.send("No user found.");
 				}
-
+				
 				res.json(user.getClientJson());
 			});
 		} else {

@@ -1,7 +1,37 @@
 <div x-header user="user"></div>
 
 <div class="container">
-	<p>register</p>
+	<p>Register for shrug.ly and customize the homepage. Or don't. ¯\_(ツ)_/¯</p>
+	<form class="form" role="form" accept-charset="UTF-8" name="registerForm" ng-submit="register(registerForm.$valid)" novalidate>
+		<div class="form-group" ng-class="{'has-error': registerForm.email.$touched && registerForm.email.$invalid }">
+			<label for="email" class="sr-only">Email address</label>
+			<input type="email" name="email" class="form-control" placeholder="Email address" ng-model="newUser.email" required autofocus>
+			<div class="help-block" ng-messages="registerForm.email.$error" ng-show="registerForm.email.$touched">
+				<p ng-message="required">Email is required.</p>
+				<p ng-message="email">Invalid email address.</p>
+			</div>
+		</div>
+		<div class="form-group" ng-class="{'has-error': registerForm.password.$touched && registerForm.password.$invalid }">
+			<label for="password" class="sr-only">Password</label>
+			<input type="password" name="password" class="form-control" placeholder="Password" ng-model="newUser.password" ng-minlength="5" required>
+			<div class="help-block" ng-messages="registerForm.password.$error" ng-show="registerForm.password.$touched">
+				<p ng-message="required">Password is required.</p>
+				<p ng-message="minlength">Password must be at least 5 characters.</p>
+			</div>
+		</div>
+		<div class="form-group" ng-class="{'has-error': registerForm.passwordConfirm.$touched && registerForm.passwordConfirm.$invalid }">
+			<label for="passwordConfirm" class="sr-only">Confirm Password</label>
+			<input type="password" name="passwordConfirm" class="form-control" placeholder="Confirm password" match-password="password" ng-model="newUser.passwordConfirm" ng-minlength="5" required>
+			<div class="help-block" ng-messages="registerForm.passwordConfirm.$error" ng-show="registerForm.passwordConfirm.$touched">
+				<p ng-message="required">Password is required.</p>
+				<p ng-message="minlength">Password must be at least 5 characters.</p>
+				<p ng-message="passwordMatch">Passwords must match.</p>
+			</div>
+		</div>
+		<div class="form-group">
+			<button class="btn btn-primary btn-block" type="submit" ng-disabled="registerForm.$invalid">Register</button>
+		</div>
+	</form>
 </div>
 
 <div x-footer></div>

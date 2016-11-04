@@ -1,5 +1,7 @@
 angular.module("shruglyApp", [
 	"ngRoute",
+	"ngMessages",
+	"ngPassword",
 	"appRoutes",
 	
 	"AsciimojiService",
