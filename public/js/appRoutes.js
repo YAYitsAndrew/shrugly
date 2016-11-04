@@ -28,6 +28,10 @@ angular.module("appRoutes", [])
 					loggedin: checkAuth
 				}
 			})
+			.when("/register", {
+				templateUrl: "views/register.html",
+				controller: "RegisterController"
+			})
 			.when("/", {
 				templateUrl: "views/main.html",
 				controller: "MainController",

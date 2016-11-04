@@ -5,6 +5,7 @@ angular.module("shruglyApp", [
 	"AsciimojiService",
 	
 	"MainCtrl",
+	"RegisterCtrl",
 	"AdminCtrl",
 	
 	"HeaderDir",
