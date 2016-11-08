@@ -29,6 +29,13 @@
 	opacity: 1;
 }
 
+/* register */
+
+.form-container {
+	width: 400px;
+	margin: 0 auto 0 auto;
+}
+
 /* header */
 
 .navbar-brand .h1 {

@@ -12,8 +12,15 @@ function($http, $location, $rootScope, $scope) {
 				$location.path("/");
 			})
 			.catch(function(err) {
-				console.log(err);
+				if(err.status === 409) {
+					$("#alert-msg").text(err.data);
+					$("#reg-alert").removeClass("hide").addClass("in");
+				}
 			});
 		}
 	};
+	
+	$scope.hideAlert = function() {
+		$("#reg-alert").addClass("hide").removeClass("in");
+	}
 }]);
