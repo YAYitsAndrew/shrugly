@@ -14,8 +14,17 @@
 	margin-top: 5rem;
 }
 
-.asciimoji {
+.asciimoji,
+.add-asciimoji {
 	font-size: 2.5rem;
+}
+
+.add-asciimoji {
+	color: #999;
+}
+
+.add-ascii-btn {
+	border-style: dashed;
 }
 
 .hover-message {
@@ -29,7 +38,8 @@
 	opacity: 0;
 }
 
-.ascii-btn:hover .hover-message {
+.ascii-btn:hover .hover-message,
+.add-ascii-btn:hover .hover-message{
 	visibility: visible;
 	opacity: 1;
 }
