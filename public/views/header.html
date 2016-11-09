@@ -13,6 +13,7 @@
 		<div class="collapse navbar-collapse" id="navbar-collapse-lbl">
 			<ul class="nav navbar-nav navbar-right" ng-if="user">
 				<li><p class="navbar-text">{{user.email}}</p></li>
+				<li><a href="/profile">Customize</a></li>
 				<li ng-if="user.isAdmin"><a href="/admin">Admin</a></li>
 				<li><a href="#" ng-click="logout()">Logout</a></li>
 			</ul>

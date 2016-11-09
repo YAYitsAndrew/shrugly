@@ -4,7 +4,8 @@ var bcrypt = require('bcrypt-nodejs');
 var userSchema = mongoose.Schema({
 	email: { type: String, required: true },
 	password: { type: String, required: true },
-	isAdmin: { type: Boolean, required: true, default: false }
+	isAdmin: { type: Boolean, required: true, default: false },
+	customAsciimojis: [String]
 });
 
 userSchema.statics.generateHash = function(password) {
@@ -18,7 +19,8 @@ userSchema.methods.validPassword = function(password) {
 userSchema.methods.getClientJson = function() {
 	return {
 		email: this.email,
-		isAdmin: this.isAdmin
+		isAdmin: this.isAdmin,
+		customAsciimojis: this.customAsciimojis
 	};
 }
 

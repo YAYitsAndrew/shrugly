@@ -1,0 +1,15 @@
+<div x-header user="user"></div>
+
+<div class="container">
+	<p>Personalize the front page with custom buttons for your favorite emotes.</p>
+	<div id="asciimojis-row" class="row">
+		<div class="col-md-3 asciimoji-container" ng-repeat="ascii in user.customAsciimojis">
+			<a class="btn btn-default btn-lg btn-block ascii-btn" href="#" role="button">
+				<div class="asciimoji">{{ascii}}</div>
+				<small class="hover-message">Drag to rearrange</small>
+			</a>
+		</div>
+	</div>
+</div>
+
+<div x-footer></div>

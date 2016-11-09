@@ -21,24 +21,31 @@ angular.module("appRoutes", [])
 		}];
 		
 		$routeProvider
-			.when("/admin", {
-				templateUrl: "views/admin.html",
-				controller: "AdminController",
-				resolve: {
-					loggedin: checkAuth
-				}
-			})
-			.when("/register", {
-				templateUrl: "views/register.html",
-				controller: "RegisterController"
-			})
-			.when("/", {
-				templateUrl: "views/main.html",
-				controller: "MainController",
-				resolve: {
-					loggedin: checkAuth
-				}
-			});
+		.when("/admin", {
+			templateUrl: "views/admin.html",
+			controller: "AdminController",
+			resolve: {
+				loggedin: checkAuth
+			}
+		})
+		.when("/profile", {
+			templateUrl: "views/profile.html",
+			controller: "ProfileController",
+			resolve: {
+				loggedin: checkAuth
+			}
+		})
+		.when("/register", {
+			templateUrl: "views/register.html",
+			controller: "RegisterController"
+		})
+		.when("/", {
+			templateUrl: "views/main.html",
+			controller: "MainController",
+			resolve: {
+				loggedin: checkAuth
+			}
+		});
 
 		$locationProvider.html5Mode(true);
 	}

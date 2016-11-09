@@ -9,6 +9,7 @@ angular.module("shruglyApp", [
 	"MainCtrl",
 	"RegisterCtrl",
 	"AdminCtrl",
+	"ProfileCtrl",
 	
 	"HeaderDir",
 	"FooterDir"

@@ -1,19 +1,24 @@
 /* asciimoji buttons */
 
-#asciimojis-row .asciimoji-container {
+.asciimoji-container {
 	margin-bottom: 2.5rem;
 }
 
-#asciimojis-row .btn-block {
+#asciimojis-row .btn-block,
+#custom-asciimojis-row .btn-block {
 	padding-top: 3rem;
 	padding-bottom: 3rem;
 }
 
-#asciimojis-row .asciimoji {
+#custom-asciimojis-row {
+	margin-top: 5rem;
+}
+
+.asciimoji {
 	font-size: 2.5rem;
 }
 
-#asciimojis-row .copy-message {
+.hover-message {
 	font-size: 1rem;
 	color: #666;
 	float: right;
@@ -24,7 +29,7 @@
 	opacity: 0;
 }
 
-#asciimojis-row .copy-btn:hover .copy-message {
+.ascii-btn:hover .hover-message {
 	visibility: visible;
 	opacity: 1;
 }

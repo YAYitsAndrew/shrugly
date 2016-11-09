@@ -3,10 +3,20 @@
 <div class="container">
 	<div id="asciimojis-row" class="row">
 		<div class="col-md-3 asciimoji-container" ng-repeat="asciimoji in asciimojis">
-			<a class="btn btn-default btn-lg btn-block copy-btn" href="#" role="button"
+			<a class="btn btn-default btn-lg btn-block ascii-btn" href="#" role="button"
 			   data-clipboard-text="{{asciimoji.ascii}}">
 				<div class="asciimoji">{{asciimoji.ascii}}</div>
-				<small class="copy-message">Copy to clipboard</small>
+				<small class="hover-message">Copy to clipboard</small>
+			</a>
+		</div>
+	</div>
+	
+	<div id="custom-asciimojis-row" class="row">
+		<div class="col-md-3 asciimoji-container" ng-repeat="ascii in user.customAsciimojis">
+			<a class="btn btn-default btn-lg btn-block ascii-btn" href="#" role="button"
+			   data-clipboard-text="{{ascii}}">
+				<div class="asciimoji">{{ascii}}</div>
+				<small class="hover-message">Copy to clipboard</small>
 			</a>
 		</div>
 	</div>

@@ -17,6 +17,16 @@ module.exports = function(app) {
 		}
 	};
 	
+	var checkAdminAuthentication = function(req, res, next) {
+		if(!req.isAuthenticated()) {
+			res.sendStatus(401);
+		} else if(!req.user.isAdmin) {
+			res.sendStatus(401);
+		} else {
+			next();
+		}
+	};
+	
 	app.get( asciimojiRouteWithId, function(req, res) {
 		Asciimoji.findById(req.params.id, function(err, asciimoji) {
 			if(err) {
@@ -27,7 +37,7 @@ module.exports = function(app) {
 		});
 	});
 	
-	app.delete(asciimojiRouteWithId, checkAuthentication, function(req, res) {
+	app.delete(asciimojiRouteWithId, checkAdminAuthentication, function(req, res) {
 		Asciimoji.findByIdAndRemove(req.params.id, {}, function(err, asciimoji) {
 			if(err) {
 				res.send(err);
@@ -47,7 +57,7 @@ module.exports = function(app) {
 		});
 	});
 	
-	app.post(asciimojiRoute, checkAuthentication, function(req, res) {
+	app.post(asciimojiRoute, checkAdminAuthentication, function(req, res) {
 		var newObj = {
 			name: req.body.name,
 			ascii: req.body.ascii
@@ -60,6 +70,10 @@ module.exports = function(app) {
 			
 			res.json(asciimoji);
 		});
+	});
+	
+	app.post("/api/customAscii", checkAuthentication, function(req, res) {
+		
 	});
 	
 	app.post("/user", function(req, res) {
@@ -129,7 +143,11 @@ module.exports = function(app) {
 	var angularRouter = path.join(__dirname, "../public", "index.html");
 	
 	// restricted urls check auth first
-	app.get("/admin", checkAuthentication, function(req, res) {
+	app.get("/admin", checkAdminAuthentication, function(req, res) {
+		res.sendFile(angularRouter);
+	});
+	
+	app.get("/profile", checkAuthentication, function(req, res) {
 		res.sendFile(angularRouter);
 	});
 	
